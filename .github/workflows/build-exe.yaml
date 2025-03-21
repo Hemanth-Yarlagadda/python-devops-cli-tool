@@ -16,7 +16,7 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -35,7 +35,7 @@ jobs:
         shell: cmd
 
       - name: Upload Executable
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: built-exe
           path: dist/cli.exe
@@ -46,7 +46,7 @@ jobs:
 
     steps:
       - name: Download Built EXE
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: built-exe
           path: downloaded-exe
