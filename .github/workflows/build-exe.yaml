@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - dev
   pull_request:
     branches:
       - main
@@ -38,7 +39,7 @@ jobs:
         with:
           name: built-exe
           path: dist/cli.exe
-
+          
   download:
     needs: build
     runs-on: ubuntu-latest  # Can be any OS since it's just downloading
