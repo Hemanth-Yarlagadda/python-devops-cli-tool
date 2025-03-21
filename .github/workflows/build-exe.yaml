@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - dev
   pull_request:
     branches:
       - main
@@ -39,3 +38,17 @@ jobs:
         with:
           name: built-exe
           path: dist/cli.exe
+
+  download:
+    needs: build
+    runs-on: ubuntu-latest  # Can be any OS since it's just downloading
+
+    steps:
+      - name: Download Built EXE
+        uses: actions/download-artifact@v3
+        with:
+          name: built-exe
+          path: downloaded-exe
+
+      - name: List Downloaded Files
+        run: ls -R downloaded-exe
