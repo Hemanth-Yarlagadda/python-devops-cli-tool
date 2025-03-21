@@ -101,19 +101,23 @@ jobs:
           name: built-exe
           path: downloaded-exe
 
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
+      - name: Generate Release Notes
+        run: |
+            echo "Release: ${{ env.new_version }}" > downloaded-exe/release.txt
+            echo "Changes in this release:" >> downloaded-exe/release.txt
+            echo "- Auto-generated EXE build." >> downloaded-exe/release.txt
+            echo "- Version: ${{ env.new_version }}" >> downloaded-exe/release.txt
+            echo "- ${{ github.sha }}" >> downloaded-exe/release.txt
+  
+      - name: Upload Release Assets
+        uses: softprops/action-gh-release@v1
         with:
-          tag_name: ${{ env.new_version }}
-          name: Release ${{ env.new_version }}
-          body: |
-            🚀 New release: **${{ env.new_version }}**
-            - Auto-generated EXE build.
-            - Download the EXE file below. 
-            - downloaded-exe/release.txt
-          draft: false
-          prerelease: true
-          files: |
-            downloaded-exe/script.exe
-            LICENSE
-            downloaded-exe/release.txt
+            tag_name: ${{ env.new_version }}
+            name: Release ${{ env.new_version }}
+            body_path: downloaded-exe/release.txt
+            draft: false
+            prerelease: true
+            files: |
+              downloaded-exe/script.exe
+              LICENSE
+              downloaded-exe/release.txt
